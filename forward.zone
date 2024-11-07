@@ -1,0 +1,21 @@
+# File: forward.zone (line 1)
+
+$TTL 3600
+@ IN SOA ns1.example.com. admin.example.com. (
+    2022081200 ; serial
+    3600 ; refresh (1 hour)
+    600 ; retry (10 minutes)
+    604800 ; expire (7 days)
+    3600 ) ; minimum (1 hour)
+
+; Name servers for example.com
+@ IN NS ns1.example.com.
+ns1 IN A 192.168.122.100
+
+; Hosts on the network with their IP addresses
+host1 IN A 192.168.122.101
+host2 IN A 192.168.122.102
+
+; Other records for example.com
+example.com. IN MX 10 mail.example.com.
+mail IN A 192.168.122.100

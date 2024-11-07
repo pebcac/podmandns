@@ -1,0 +1,47 @@
+# File: docker-compose.yml (line 1)
+
+version: '3'
+
+services:
+  bind:
+    image: docker.io/ubuntu/bind9:latest
+    restart: always
+    ports:
+      - "4353:53/udp"
+      - "4353:53/tcp"
+    volumes:
+      - ./forward.zone:/etc/bind/db.forward
+      - ./reverse.zone:/etc/bind/db.reverse
+      - ./named.conf.local:/etc/named.conf.local
+    networks:
+      - dns-network
+
+networks:
+  dns-network:
+    driver: bridge
+
+# File: docker-compose.yml (line 10)
+
+volumes:
+  forward.zone:
+    file:
+      filename: ./forward.zone
+      mode: '0644'
+  reverse.zone:
+    file:
+      filename: ./reverse.zone
+      mode: '0644'
+  named.conf.local:
+    file:
+      filename: ./named.conf.local
+      mode: '0644'
+
+# File: docker-compose.yml (line 18)
+
+x-logging:
+  driver: syslog
+
+x-checks:
+  - command: test -f /etc/bind/db.forward && test -f /etc/bind/db.reverse && test -f /etc/named.conf.local
+    unless: docker-compose config --quiet
+    error-message: "DNS configuration files not found. Please ensure they are present in the correct location."

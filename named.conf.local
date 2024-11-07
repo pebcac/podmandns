@@ -1,0 +1,13 @@
+# File: named.conf.local (line 1)
+
+// Forward zone configuration
+zone "example.com" {
+    type master;
+    file "/etc/bind/db.forward";
+};
+
+// Reverse zone configuration
+zone "122.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.reverse";
+};

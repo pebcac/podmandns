@@ -1,0 +1,16 @@
+# File: reverse.zone (line 1)
+
+$TTL 3600
+122.168.192.IN-ADDR.ARPA. IN SOA ns1.example.com. admin.example.com. (
+    2022081200 ; serial
+    3600 ; refresh (1 hour)
+    600 ; retry (10 minutes)
+    604800 ; expire (7 days)
+    3600 ) ; minimum (1 hour)
+
+; Hosts on the network with their IP addresses
+100 IN PTR ns1.example.com.
+101 IN PTR host1.example.com.
+102 IN PTR host2.example.com.
+
+; Other records for example.com
